@@ -69,21 +69,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id='1'>Console Log</button>
+      <button id='2'> Console Error</button>
+      <button id='3'>Console Count</button>
+      <button id='4'>Console Warn</button>
+      <button id='5'>Console Assert</button>
+      <button id='6'>Console Clear</button>
+      <button id='7'>Console Dir</button>
+      <button id='8'>Console dirxml</button>
+      <button id='9'>Console Group Start</button>
+      <button id='10'>Console Group End</button>
+      <button id='11'>Console Table</button>
+      <button id='12'>Start Timer</button>
+      <button id='13'>End Timer</button>
+      <button id='14'>Console Trace</button>
+      <button id='15'>Trigger a Global Error</button>
     </section>
   </main>
 
@@ -102,6 +102,95 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let log = document.getElementById('1');
+    log.addEventListener('click', e =>{
+      console.log('Console log demo');
+    });
+    let error = document.getElementById('2');
+    error.addEventListener('click', e =>{
+      console.error('Console error demo');
+    });
+    let count = document.getElementById('3');
+    count.addEventListener('click', e =>{
+      console.count('Count ');
+    });
+    let warn = document.getElementById('4');
+    warn.addEventListener('click', e =>{
+      console.warn('Console warning demo');
+    });
+    let assert = document.getElementById('5');
+    const x = 6;
+    const y = 4;
+    const reason = 'x is expected to be less than y';
+    assert.addEventListener('click', e =>{
+      console.assert(x < y, {x, y, reason});
+    });
+    let clear = document.getElementById('6');
+    clear.addEventListener('click', e =>{
+      console.clear();
+    });
+    let dir = document.getElementById('7');
+    dir.addEventListener('click', e =>{
+      console.dir(log);
+    });
+    let dirxml = document.getElementById('8');
+    dirxml.addEventListener('click', e =>{
+      console.dirxml(log);
+    });
+    let group = document.getElementById('9');
+    const label = 'Start of group';
+    group.addEventListener('click', e =>{
+      console.group(label);
+    });
+    let groupEnd = document.getElementById('10');
+    groupEnd.addEventListener('click', e =>{
+      console.groupEnd(label);
+    });
+    let table = document.getElementById('11');
+    table.addEventListener('click', e =>{
+      console.table([
+        {
+          first: 'TJ',
+          last: 'Alo',
+        },
+        {
+          first: 'Elijah',
+          last: 'Roma',
+        },
+        {
+          first: 'Axel',
+          last: 'Alamban',
+        }
+      ]);
+      console.table();
+    });
+    let startTime = document.getElementById('12');
+    startTime.addEventListener('click', e =>{
+      console.time();
+    });
+    let endTime = document.getElementById('13');
+    endTime.addEventListener('click', e =>{
+      console.timeEnd();
+    });
+    let trace = document.getElementById('14');
+    trace.addEventListener('click', e =>{
+      const first = () => {second(); };
+      const second = () => {console.trace(); };
+      first();
+    });
+
+    try{
+      //number never defined
+      let variable = 3 + number;
+      console.log(variable);
+    }
+    catch(err){
+      throw new Error('That did not work!');
+    }
+    finally{
+      let variable = 2;
+      console.log(variable);
+    }
   </script>
 </body>
 
