@@ -86,8 +86,21 @@
       <button id='15'>Trigger a Global Error</button>
     </section>
   </main>
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "97fdf7aab43640d595422296344b5b03"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+  <script>
+    TrackJS.track('Testing TrackJS!');
+    class numError extends Error{
+      constructor(message) {
+        super(message); // (1)
+        this.name = "Second input not number!"; // (2)
+      }
+    }
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,7 +108,20 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try{
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(err){
+        if(typeof firstNum != Number){
+          throw new Error('First input not a number!');
+        }
+        if(typeof secondNum != Number){
+          throw new numError(err.message);
+        }
+      }
+      finally{
+        console.log(firstNum, secondNum);
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
@@ -178,19 +204,11 @@
       const second = () => {console.trace(); };
       first();
     });
-
-    try{
-      //number never defined
-      let variable = 3 + number;
-      console.log(variable);
-    }
-    catch(err){
-      throw new Error('That did not work!');
-    }
-    finally{
-      let variable = 2;
-      console.log(variable);
-    }
+    let global = document.getElementById('15');
+    global.addEventListener('click', e =>{
+      const num = 5;
+      num = 7;
+    });
   </script>
 </body>
 
